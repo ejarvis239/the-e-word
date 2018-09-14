@@ -19,47 +19,47 @@
         <h2></h2>List of endpoints available</h2>
         <p>
         GET /api
-        Serves a JSON object with information about the following endpoints
+        <br>Serves a JSON object with information about the following endpoints
         <br>
         GET /api/topics
-        Get all the topics
+        <br>Get all the topics
         <br>
         GET /api/topics/:topic_id/articles
-        Return all the articles for a certain topic
+        <br>Return all the articles for a certain topic
         <br>
         POST /api/topics/:topic_id/articles
-        Add a new article to a topic. This route requires a JSON body with title and body key value pairs e.g: { "title": "this is my new article title" "body": "This is my new article content" }
+        <br> Add a new article to a topic. This route requires a JSON body with title and body key value pairs e.g: { "title": "this is my new article title" "body": "This is my new article content" }
         <br>
         GET /api/articles
-        Returns all the articles
+        <br>Returns all the articles
         <br>
         GET /api/articles/:article_id
-        Get an individual article
+        <br>Get an individual article
         <br>
         GET /api/articles/:article_id/comments
-        Get all the comments for a individual article
+        <br>Get all the comments for a individual article
         <br>
         POST /api/articles/:article_id/comments
-        Add a new comment to an article. This route requires a JSON body with a comment key and value pair e.g: {"comment": "This is my new comment"}
+        <br>Add a new comment to an article. This route requires a JSON body with a comment key and value pair e.g: {"comment": "This is my new comment"}
         <br>
         PATCH /api/articles/:article_id
-        Increment or Decrement the votes of an article by one. This route requires a vote query of 'up' or 'down' e.g: /api/articles/:article_id?vote=up
+        <br>Increment or Decrement the votes of an article by one. This route requires a vote query of 'up' or 'down' e.g: /api/articles/:article_id?vote=up
         <br>
         PATCH /api/comments/:comment_id
-        Increment or Decrement the votes of a comment by one. This route requires a vote query of 'up' or 'down' e.g: /api/comments/:comment_id?vote=down
+        <br>Increment or Decrement the votes of a comment by one. This route requires a vote query of 'up' or 'down' e.g: /api/comments/:comment_id?vote=down
         <br>
         DELETE /api/comments/:comment_id
-        Deletes a comment
+        <br>Deletes a comment
         <br>
         GET /api/users/:username
-        Returns a JSON object with the profile data for the specified user.
+        <br>Returns a JSON object with the profile data for the specified user.
         <br>
         </p>
         <h2>Built With</h2>
         <p>
         express - Fast, unopinionated, minimalist web framework for node.
-        mongoose - Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment.
-        body-parser - Node.js body parsing middleware.
+        <br>mongoose - Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment.
+        <br>body-parser - Node.js body parsing middleware.
         <br>
         </p>
         <h2>Downloading For External Use</h2>
@@ -67,14 +67,14 @@
         The 4 production dependencies are listed above however there are also 4 recommended development dependencies that will help with the testing included and further development.
         <br>
         chai - Chai is a BDD / TDD assertion library for node and the browser.
-        mocha - Simple, flexible, fun JavaScript test framework for Node.js & The Browser.
-        nodemon - nodemon will watch the files in the directory in which nodemon was started, and if any files change, nodemon will automatically restart your node application.
-        supertest - HTTP assertions made easy via superagent.
+        <br>mocha - Simple, flexible, fun JavaScript test framework for Node.js & The Browser.
+        <br>nodemon - nodemon will watch the files in the directory in which nodemon was started, and if any files change,    <br>nodemon will automatically restart your node application.
+        <br>supertest - HTTP assertions made easy via superagent.
         <br>
         
         Not included in this repository are the development/test/production files in the config folder that export (through an index file) a string that is a link to the mongo database e.g. "mongodb://<user>:<password>@<mlab:port>/<database-name>".
                 <br>
-        The seed file provided should create an appropriate local mongo database. This can be ran using 'node seed/run-seed.js
+                <br>The seed file provided should create an appropriate local mongo database. This can be ran using 'node seed/run-seed.js
         <br>
         </p>
         <h2>Testing Code Additions</h2>
