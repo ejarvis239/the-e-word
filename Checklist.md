@@ -7,7 +7,7 @@
 - [yes] Routes broken down with `Router.route`
 - [yes] Uses config file and process.env
 - [yes] No errors in the console when running in dev or running tests
-- [ ] Deployed on heroku and Mlab ()
+- [yes] Deployed on heroku and Mlab ()
 
 ## Implements all endpoints
 - [yes] `GET /api/topics`
