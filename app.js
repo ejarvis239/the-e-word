@@ -11,9 +11,8 @@ mongoose.connect(DB_URL)
   .catch(console.log)
 
 app.get('/', (req, res) => {
-    res.render('index');
-    // res.send('all good'));
-});
+     res.sendFile(path.join(__dirname, './README3.md'));
+      });
 
 app.use('/api', apiRouter);
 
