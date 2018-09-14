@@ -9,8 +9,8 @@ apiRouter.use('/articles', articleRouter);
 apiRouter.use('/comments', commentRouter);
 apiRouter.use('/users', userRouter);
 
-// app.get('/', (req, res, next) => {
-//         res.sendFile('./README3.md')
-//       })
+app.get('/', (req, res, next) => {
+    res.sendFile(path.join(__dirname, './README3.md'));
+      })
 
 module.exports = apiRouter;
