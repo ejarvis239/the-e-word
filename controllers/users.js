@@ -6,6 +6,7 @@ const getUserByUsername = (req, res, next) => {
     .then(user => {
       res.send({ user })
     })
+    .catch(next)
 }
 
 module.exports = { getUserByUsername };
