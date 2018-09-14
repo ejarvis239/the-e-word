@@ -10,7 +10,7 @@ apiRouter.use('/comments', commentRouter);
 apiRouter.use('/users', userRouter);
 
 app.get('/', (req, res, next) => {
-        res.sendFile({'./README3.md'})
+        res.sendFile('./README3.md')
       })
 
 module.exports = apiRouter;
