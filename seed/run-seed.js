@@ -1,7 +1,7 @@
 process.env.NODE_ENV = 'production';
 const seedDB = require('./seed');
 const mongoose = require('mongoose');
-const DB_URL = 'mongodb://<dbuser>:<dbpassword>@ds257372.mlab.com:57372/ncnews'
+const DB_URL = require("../config/index.js")
 const data = require('./devData/index.js')
 
 mongoose.connect(DB_URL)

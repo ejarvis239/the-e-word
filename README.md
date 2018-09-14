@@ -128,32 +128,13 @@ Finally, you should write a README for this project (and remove this one). The R
 
 It should also include the link where your herokuapp is hosted.
 
-seed database to mlab
-join mlabs
-create database
-change URL 
-db user and db password
-datsbase users tab
-create new database user
-change URL in seed dev file
-config dile
-config
-production: mongodb://<ejarvis293>:<xcsdwe23>@ds257372.mlab.com:57372/ncnews
-NOVE_ENV=production node ./seeds/run-seed.js
+production: mongodb://ejarvis293:xcsdwe23@ds257372.mlab.com:57372/ncnews
 
-heroku login 
-create app 
+NOVE_ENV=production node ./seed/run-seed.js
 
-
-git add 
-git commit
-git push heroku master
-
-heroku config:set DB_URL=mongodb://<ejarvis293>:<xcsdwe23>@ds257372.mlab.com:57372/ncnews
-
+heroku config:set DB_URL=mongodb://ejarvis:xcsdwe23@ds257372.mlab.com:57372/ncnews
 
 heroku open
-
 {
     "_id": "ncnews.ejarvis239",
     "user": "ejarvis239",
@@ -165,5 +146,4 @@ heroku open
         }
     ]
 }
-
 https://nc-news-emma.herokuapp.com/ | https://git.heroku.com/nc-news-emma.git
