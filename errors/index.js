@@ -1,18 +1,18 @@
-const pgp = require('pg-promise')
-const QRE = pgp.errors.QueryResultError;
-const qrec = pgp.errors.queryResultErrorCode.noData;
+
 
 exports.handle404s = (err, req, res, next) => {
-  if (err instanceof QRE && err.code === qrec) {
-    res.status(404).send({ msg: 'Not found' })
+    if (err.status === 404){
+    res.status(404).send({msg: err.msg})
+    } 
+    else next(err)
   }
-  else next(err);
-}
 
 exports.handle400s = (err, req, res, next) => {
   console.log(err)
-  if (err.code === '22P02' || err.code === '23502') {
-    res.status(400).send({ msg: err.message || 'Bad request' })
+  console.log(err.name)
+  console.log(err.message)
+  if (err.name === "ValidationError") {
+      res.status(400).send({msg: err.message})
   }
   else next(err)
 }

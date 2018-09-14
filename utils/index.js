@@ -20,11 +20,12 @@
   }
 
   exports.formatCommentData = (commentData, articleRefObj, userRefObjForComments) => {
+ 
       return commentData.map(commentDatum => {
       return {
         ...commentDatum, 
         created_by: userRefObjForComments[commentDatum.created_by],
-        belongs_to: articleRefObj[commentDatum.belongs_to],
+        belongs_to: articleRefObj[commentDatum.belongs_to]
       }
     })
   }
