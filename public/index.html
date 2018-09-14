@@ -28,7 +28,9 @@
         <br>Return all the articles for a certain topic
         <br>
         POST /api/topics/:topic_id/articles
-        <br> Add a new article to a topic. This route requires a JSON body with title and body key value pairs e.g: { "title": "this is my new article title" "body": "This is my new article content" }
+        <br> Add a new article to a topic. 
+        <br>This route requires a JSON body with title and body key value pairs 
+        <br>e.g: { "title": "this is my new article title" "body": "This is my new article content" }
         <br>
         GET /api/articles
         <br>Returns all the articles
@@ -40,13 +42,19 @@
         <br>Get all the comments for a individual article
         <br>
         POST /api/articles/:article_id/comments
-        <br>Add a new comment to an article. This route requires a JSON body with a comment key and value pair e.g: {"comment": "This is my new comment"}
+        <br>Add a new comment to an article. 
+        <br> This route requires a JSON body with a comment key and value pair 
+        <br>e.g: {"comment": "This is my new comment"}
         <br>
         PATCH /api/articles/:article_id
-        <br>Increment or Decrement the votes of an article by one. This route requires a vote query of 'up' or 'down' e.g: /api/articles/:article_id?vote=up
+        <br>Increment or Decrement the votes of an article by one. 
+        <br>This route requires a vote query of 'up' or 'down' 
+        <br>e.g: /api/articles/:article_id?vote=up
         <br>
         PATCH /api/comments/:comment_id
-        <br>Increment or Decrement the votes of a comment by one. This route requires a vote query of 'up' or 'down' e.g: /api/comments/:comment_id?vote=down
+        <br>Increment or Decrement the votes of a comment by one. 
+        <br>This route requires a vote query of 'up' or 'down' 
+        <br>e.g: /api/comments/:comment_id?vote=down
         <br>
         DELETE /api/comments/:comment_id
         <br>Deletes a comment
