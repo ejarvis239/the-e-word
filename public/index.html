@@ -12,52 +12,54 @@
     <h1>Northcoders News Back-End</h1>   
     <p>A back-end server built to interface with a mongoDB database - providing useful api endpoints to perform CREATE, READ, UPDATE and DELETE operations on the four collections within. <br>
         <br>
-        Check it out --> https://nc-news-emma.herokuapp.com/api/
+        Check it out --> https://nc-news-emma.herokuapp.com
         <br>
         <h2>List of endpoints available</h2>
         <p>
-        GET /api
+        
+                <br>GET /api
         <br>Serves a JSON object with information about the following endpoints
         <br>
-        GET /api/topics
+        <br>
+        <br>GET /api/topics
         <br>Get all the topics
         <br>
-        GET /api/topics/:topic_id/articles
+        <br>GET /api/topics/:topic_id/articles
         <br>Return all the articles for a certain topic
         <br>
-        POST /api/topics/:topic_id/articles
+        <br>POST /api/topics/:topic_id/articles
         <br> Add a new article to a topic. 
         <br>This route requires a JSON body with title and body key value pairs 
         <br>e.g: { "title": "this is my new article title" "body": "This is my new article content" }
         <br>
-        GET /api/articles
+        <br>GET /api/articles
         <br>Returns all the articles
         <br>
-        GET /api/articles/:article_id
+        <br>GET /api/articles/:article_id
         <br>Get an individual article
         <br>
-        GET /api/articles/:article_id/comments
+        <br>GET /api/articles/:article_id/comments
         <br>Get all the comments for a individual article
         <br>
-        POST /api/articles/:article_id/comments
+        <br>POST /api/articles/:article_id/comments
         <br>Add a new comment to an article. 
         <br> This route requires a JSON body with a comment key and value pair 
         <br>e.g: {"comment": "This is my new comment"}
         <br>
-        PATCH /api/articles/:article_id
+        <br>PATCH /api/articles/:article_id
         <br>Increment or Decrement the votes of an article by one. 
         <br>This route requires a vote query of 'up' or 'down' 
         <br>e.g: /api/articles/:article_id?vote=up
         <br>
-        PATCH /api/comments/:comment_id
+        <br>PATCH /api/comments/:comment_id
         <br>Increment or Decrement the votes of a comment by one. 
         <br>This route requires a vote query of 'up' or 'down' 
         <br>e.g: /api/comments/:comment_id?vote=down
         <br>
-        DELETE /api/comments/:comment_id
+        <br>DELETE /api/comments/:comment_id
         <br>Deletes a comment
         <br>
-        GET /api/users/:username
+        <br>GET /api/users/:username
         <br>Returns a JSON object with the profile data for the specified user.
         <br>
         </p>
