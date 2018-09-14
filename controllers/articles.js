@@ -40,7 +40,7 @@ const getArticleByTopic = (req, res, next) => {
     Article.findById(article_id)
     .populate('created_by', '-__v')
       .then(article1 => {
-        const article = {...article1._doc, commentCount: commentCount}
+        const article = {...article1, commentCount: commentCount}
         if (!article) throw {msg: 'id does not exist', status:404}
         res.status(200).send({ article })
       })
