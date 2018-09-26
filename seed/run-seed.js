@@ -9,6 +9,5 @@ mongoose.connect(DB_URL)
     return seedDB(data)
   })
   .then(() => {
-    console.log('Database successfully seeded!')
     mongoose.disconnect();
   });

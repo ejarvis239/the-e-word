@@ -17,7 +17,7 @@ app.get('/', express.static('public'))
 app.use('/api', apiRouter);
 
 app.use('/*', (req, res) => {
-res.status(404).send('Page not found');
+res.status(404).send({msg: 'Page not found'});
 });
 
 app.use(handle404s);

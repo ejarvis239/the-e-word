@@ -16,44 +16,97 @@ describe('/api', () => {
   });
   after(() => mongoose.disconnect())
 
-    describe('/topics/', () => {
+    describe("/*", () => {
+      it('GET any other path returns status 404 and message Page not found', () => {
+      return request 
+      .get("/hello")
+      .expect(404)
+      .then(res => { 
+        expect(res.body.msg).to.equal('Page not found');
+      })
+    })
+  })
+    describe('/topics', () => {
         it('GET returns object with topic array and returns a 200 status', () => {
           return request
             .get('/api/topics/')
             .expect(200)
             .then(res => {
-              console.log(res.body)
               expect(res.body.topics).to.have.length(2);
+              expect(res.body.topics).to.be.an("array");
+              expect(res.body.topics[0]).to.include.keys(
+                "_id",
+                "title",
+                "slug",
+                "__v")
             });
         })
+      })
+      describe('/topics/:topic_slug/articles', () => {
+        it.only("GET returns all articles for a certain topic", () => {
+          return request
+          .get("/api/topics/mitch/articles")
+          .expect(200)
+          .then(res => { console.log(res.body)
+            expect(res.body.topicArticles).to.be.an("array")
+            expect(res.body.topicArticles).to.have.length(2);
+          })
+        })
+        it("GET returns a status 400 when an invalid topic is requested", () => {
+          return request
+          .get("/api/topics/pokemon/articles")
+          .expect(404)
+          .then(res => { 
+            console.log(res.body)
+          })
+        })
+
+
         it('POST adds new article to the topic and returns a 201 status', () => {
             return request
               .post('/api/topics/mitch/articles')
               .send({ title: 'mitch', body: 'mitch', belongs_to: 'mitch', created_by: users[0]._id})
               .expect(201)
-              console.log(error)
               .then(res => {
                 expect(res.body.article.title).to.equal('mitch');
+                expect(res.body.article).to.include.keys(
+                  "title",
+                  "body",
+                  "belongs_to",
+                  "created_by"
+                )
               });
           });
-   
-        it('POST returns a 400 status and error message when the new object is empty', () => {
+        it('POST returns a 400 status and error message when the new post is empty', () => {
           return request
             .post('/api/topics/mitch/articles')
             .send({  })
             .expect(400)
-            .then(res => { console.log(res.body)
+            .then(res => { 
               expect(res.body.msg).to.equal('articles validation failed: created_by: Path `created_by` is required., body: Path `body` is required., title: Path `title` is required.');
             });
         });   
-      });     
+        it('POST returns a 400 status and error message when there is a missing required field in the new post', () => {
+          return request
+            .post('/api/topics/mitch/articles')
+            .send({title: 'mitch', body: 'mitch'})
+            .expect(400)
+            .then(res => { 
+              expect(res.body.msg).to.equal('articles validation failed: created_by: Path `created_by` is required.');
+            });
+        });   
+      });   
+      
+      
+
+
+
     describe('/articles/', () => {
-      it.only('GET returns object with article array and returns a 200 status', () => {
+      it('GET returns object with article array and returns a 200 status', () => {
         return request
           .get('/api/articles/')
           .expect(200)
           .then(res => {
-            console.log(res.body)
             expect(res.body[0].comments).to.equal(2);
           });
       })
@@ -64,7 +117,6 @@ describe('/api', () => {
           .get(`/api/articles/${articles[0]._id}`)
           .expect(200)
           .then(res => {
-            console.log(res.body)
             expect(res.body.article.commentCount).to.equal(2);
           });
       })
