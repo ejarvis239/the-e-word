@@ -20,10 +20,10 @@
         <br>Serves information about the following endpoints
         <br>
         <br>
-        <br>GET /api/topics
+        <br> <a href="/api/topics">GET /api/topics</a>
         <br>Get all the topics
         <br>
-        <br>GET /api/topics/:topic_id/articles
+        <br> GET /api/topics/:topic_id/articles
         <br>Return all the articles for a certain topic
         <br>
         <br>POST /api/topics/:topic_id/articles
@@ -31,7 +31,7 @@
         <br>This route requires a JSON body with title and body key value pairs 
         <br>e.g: { "title": "this is my new article title" "body": "This is my new article content" }
         <br>
-        <br>GET /api/articles
+        <br> <a href="/api/articles">GET /api/articles</a>
         <br>Returns all the articles
         <br>
         <br>GET /api/articles/:article_id
@@ -59,24 +59,24 @@
         <br>Deletes a comment
         <br>
         <br>GET /api/users/:username
-        <br>Returns a JSON object with the profile data for the specified user.
+        <br>Returns profile data for the specified user.
         <br>
         </p>
         <h2>Built With</h2>
         <p>
-        express - Fast, unopinionated, minimalist web framework for node.
-        <br>mongoose - Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment.
-        <br>body-parser - Node.js body parsing middleware.
+        Express - Fast, unopinionated, minimalist web framework for node.
+        <br>Mongoose - Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment.
+        <br>Body-parser - Node.js body parsing middleware.
         <br>
         </p>
         <h2>Downloading For External Use</h2>
         <p>
         The 4 production dependencies are listed above however there are also 4 recommended development dependencies that will help with the testing included and further development.
         <br>
-        chai - Chai is a BDD / TDD assertion library for node and the browser.
-        <br>mocha - Simple, flexible, fun JavaScript test framework for Node.js & The Browser.
-        <br>nodemon - nodemon will watch the files in the directory in which nodemon was started, and if any files change,    <br>nodemon will automatically restart your node application.
-        <br>supertest - HTTP assertions made easy via superagent.
+        Chai - Chai is a BDD / TDD assertion library for node and the browser.
+        <br>Mocha - Simple, flexible, fun JavaScript test framework for Node.js & The Browser.
+        <br>Nodemon - Nodemon will watch the files in the directory in which nodemon was started, and if any files change,    <br>Nodemon will automatically restart your node application.
+        <br>Supertest - HTTP assertions made easy via superagent.
         <br>
         
         Not included in this repository are the development/test/production files in the config folder that export (through an index file) a string that is a link to the mongo database.
