@@ -9,4 +9,6 @@ apiRouter.use('/articles', articleRouter);
 apiRouter.use('/comments', commentRouter);
 apiRouter.use('/users', userRouter);
 
+app.get('/', express.static('public'))
+
 module.exports = apiRouter;
