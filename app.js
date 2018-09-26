@@ -6,6 +6,8 @@ const apiRouter = require('./router/api');
 const { handle404s, handle400s, handle500s } = require('./errors')
 app.use(bodyParser.json(), express.static('public'))
 const DB_URL = process.env.DB_URL || require('./config/index.js')
+app.set("view engine", "ejs");
+app.use(express.static(__dirname + "/public"));
 
 mongoose.connect(DB_URL)
   .catch(console.log)
