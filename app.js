@@ -10,7 +10,7 @@ const DB_URL = process.env.DB_URL || require('./config/index.js')
 mongoose.connect(DB_URL)
   .catch(console.log)
 
-// app.get('/', express.static('public'))
+app.get('/', express.static('public'))
 
 app.use('/api', apiRouter);
 
