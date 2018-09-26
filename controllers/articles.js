@@ -1,5 +1,9 @@
 const { Article, Comment } = require('../models/index');
 
+const getApi = (req, res, next) => {
+  res.status(200).render()
+}
+
 const getArticleByTopic = (req, res, next) => {
     const { topic_slug } = req.params;
     Article.find({belongs_to: topic_slug})
