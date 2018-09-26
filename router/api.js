@@ -10,5 +10,6 @@ apiRouter.use('/comments', commentRouter);
 apiRouter.use('/users', userRouter);
 
 apiRouter.get("/", (req, res, next) => res.status(200).render("api"));
+apiRouter.get("/find", (req, res, next) => res.status(200).render("find"));
 
 module.exports = apiRouter;
