@@ -53,12 +53,12 @@ describe('/api', () => {
             expect(res.body.topicArticles[0]).to.haveOwnProperty("comments")
           })
         })
-        it.only("GET returns a status 404 when an invalid topic is requested", () => {
+        it("GET returns a status 404 when an invalid topic is requested", () => {
           return request
           .get("/api/topics/pokemon/articles")
           .expect(404)
           .then(res => { 
-            console.log(res.body)
+            expect(res.body.msg).to.equal("topic does not exist")
           })
         })
         it('POST adds new article to the topic and returns a 201 status', () => {
@@ -95,19 +95,15 @@ describe('/api', () => {
             });
         });   
       });   
-      
-      
-
-
-
     describe('/articles/', () => {
-      it('GET returns object with article array and returns a 200 status', () => {
+      it.only('GET returns object with article array and returns a 200 status', () => {
         return request
           .get('/api/articles/')
           .expect(200)
           .then(res => {
-            expect(res.body[0].comments).to.equal(2);
-            expect(res.body.articles[0]).to.haveOwnProperty("comments")
+            console.log(res.body)
+            // expect(res.body[0].comments).to.equal(2);
+            // expect(res.body.articles[0]).to.haveOwnProperty("comments");
           });
       })
     })
@@ -116,15 +112,26 @@ describe('/api', () => {
         return request
           .get(`/api/articles/${articles[0]._id}`)
           .expect(200)
-          .then(res => {
-            expect(res.body.article.commentCount).to.equal(2);
+          .then(res => { 
+            expect(res.body.article.comments).to.equal(2);
+            expect(res.body.article).to.include.keys(
+              "title",
+              "body",
+              "belongs_to",
+              "created_by",
+              "votes",
+              "created_at",
+              "_id",
+              "__v",
+              "comments"
+            )
           });
       })
       it('GET an article id that doesnt exist returns an error message and a 404 status', () => {
         return request
           .get(`/api/articles/${mongoose.Types.ObjectId()}`)
           .expect(404)
-          .then(res => {
+          .then(res => { 
             expect(res.body.msg).to.equal('id does not exist');
           });
       })
@@ -166,6 +173,7 @@ describe('/api', () => {
           .then(res => {
             console.log(res.body)
             expect(res.body.article.votes).to.equal(1);
+            expect(res.body.article).to.haveOwnProperty("comments")
           });
       })
       it('PATCH decrements the votes of an article by one', () => {

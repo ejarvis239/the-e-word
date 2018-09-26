@@ -47,16 +47,15 @@ const getArticleByTopic = (req, res, next) => {
 
   const getArticleById = (req, res, next) => {
     const {article_id} = req.params
-    Comment.count({belongs_to: article_id})
-    .then(commentCount => {
-    Article.findById(article_id)
-    .populate('created_by', '-__v')
-      .then(article1 => {
-        const article = {...article1._doc, commentCount: commentCount}
-        if (!article) throw {msg: 'id does not exist', status:404}
+    return Promise.all([
+    Comment.count({belongs_to: article_id}),
+    Article.findById(article_id).populate('created_by', '-__v')
+  ])
+    .then(([commentCount, article]) => {
+        if (!article) return Promise.reject({msg: 'id does not exist', status:404})
+        article = {...article._doc, comments: commentCount}
         res.status(200).send({ article })
       })
-    })
       .catch(next)
   };
 
@@ -73,12 +72,17 @@ const getArticleByTopic = (req, res, next) => {
 
   const changeArticleVotes = (req,res, next) => {
     const {article_id} = req.params
-
     if (req.query.vote === 'up'){
+    Comment.count({belongs_to: article_id})
+    .then(commentCount => {
     Article.findByIdAndUpdate({_id: article_id}, {$set: {votes: +1}}, {new: true})
-    .then(article => {
+    .populate('created_by', '-__v')
+    .then(article1 => {
+      const article = {...article1._doc, comments: commentCount}
+      if (!article) throw {msg: 'id does not exist', status:404}
       res.status(200).send({article})
     })
+  })
     .catch(next)
   }
     if (req.query.vote === 'down'){
