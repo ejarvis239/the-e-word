@@ -43,16 +43,17 @@ describe('/api', () => {
         })
       })
       describe('/topics/:topic_slug/articles', () => {
-        it.only("GET returns all articles for a certain topic", () => {
+        it("GET returns all articles for a certain topic", () => {
           return request
           .get("/api/topics/mitch/articles")
           .expect(200)
           .then(res => { console.log(res.body)
             expect(res.body.topicArticles).to.be.an("array")
             expect(res.body.topicArticles).to.have.length(2);
+            expect(res.body.topicArticles[0]).to.haveOwnProperty("comments")
           })
         })
-        it("GET returns a status 400 when an invalid topic is requested", () => {
+        it.only("GET returns a status 404 when an invalid topic is requested", () => {
           return request
           .get("/api/topics/pokemon/articles")
           .expect(404)
@@ -60,8 +61,6 @@ describe('/api', () => {
             console.log(res.body)
           })
         })
-
-
         it('POST adds new article to the topic and returns a 201 status', () => {
             return request
               .post('/api/topics/mitch/articles')
@@ -108,6 +107,7 @@ describe('/api', () => {
           .expect(200)
           .then(res => {
             expect(res.body[0].comments).to.equal(2);
+            expect(res.body.articles[0]).to.haveOwnProperty("comments")
           });
       })
     })
