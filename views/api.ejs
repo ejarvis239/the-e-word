@@ -12,12 +12,11 @@
     <h1>Northcoders News Back-End</h1>   
     <p>A back-end server built to interface with a mongoDB database - providing useful api endpoints to perform CREATE, READ, UPDATE and DELETE operations on the four collections within. <br>
         <br>
-        Check it out --> https://nc-news-emma.herokuapp.com
         <br>
         <h2>List of endpoints available</h2>
         <p>
         
-                <br>GET /api
+        <br> <a href="/api">GET /api</a>
         <br>Serves information about the following endpoints
         <br>
         <br>
@@ -80,7 +79,7 @@
         <br>supertest - HTTP assertions made easy via superagent.
         <br>
         
-        Not included in this repository are the development/test/production files in the config folder that export (through an index file) a string that is a link to the mongo database e.g. "mongodb://<user>:<password>@<mlab:port>/<database-name>".
+        Not included in this repository are the development/test/production files in the config folder that export (through an index file) a string that is a link to the mongo database.
                 <br>
                 <br>The seed file provided should create an appropriate local mongo database. This can be ran using 'node seed/run-seed.js
         <br>
@@ -92,7 +91,7 @@
     <br>
 
        <h2>Hosting</h2>
-       <p>The app is hosted on heroku and can easily be re-hosted if this repo is cloned and modified. The 2 config variables that will need to be added are the 'NODE_ENV' (production) and the 'DB_URL' (the link to the hosted mongo database e.g. "mongodb://<user>:<password>@<mlab:port>/<database-name>")
+       <p>The app is hosted on heroku and can easily be re-hosted if this repo is cloned and modified. The 2 config variables that will need to be added are the 'NODE_ENV' (production) and the 'DB_URL' (the link to the hosted mongo database.)
             <br>
             Mongo databases can be hosted on mlab.
        </p> 

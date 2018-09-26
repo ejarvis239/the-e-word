@@ -11,7 +11,7 @@ exports.handle400s = (err, req, res, next) => {
   console.log(err)
   console.log(err.name)
   console.log(err.message)
-  if (err.name === "ValidationError") {
+  if (err.name === "ValidationError" || err.name === "CastError") {
       res.status(400).send({msg: err.message})
   }
   else next(err)
