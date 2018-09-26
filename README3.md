@@ -5,7 +5,7 @@ Check it out --> https://nc-news-emma.herokuapp.com/
 
 List of endpoints available
 GET /api
-Serves a JSON object with information about the following endpoints
+Serves information about the following endpoints
 
 GET /api/topics
 Get all the topics
