@@ -100,7 +100,7 @@ describe('/api', () => {
         return request
           .get('/api/articles/')
           .expect(200)
-          .then(res => { console.log(res.body)
+          .then(res => { 
             expect(res.body.articles[0].comments).to.equal(2);
             expect(res.body.articles[0]).to.haveOwnProperty("comments");
             expect(res.body.articles[0]).to.include.keys(
@@ -277,12 +277,12 @@ describe('/api', () => {
               })
       })
       describe('/users/:username', () => {
-        it.only('GET Returns a JSON object with the profile data for the specified user', () => {
+        it('GET Returns a JSON object with the profile data for the specified user', () => {
           return request
-            .get('/api/users/username')
+            .get('/api/users/butter_bridge')
             .expect(200)
             .then(res => { console.log(res.body)
-              expect(res.body.user).to.haveOwnProperty('username');
+              expect(res.body.user[0]).to.include.keys('username', 'name', 'avatar_url');
             });
         })
       })

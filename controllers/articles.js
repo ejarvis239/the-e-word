@@ -32,7 +32,7 @@ const getArticleByTopic = (req, res, next) => {
         })])
         })
       .then(([articles, ...commentCount]) => {
-        return Promise.all ([articles.map((article, index) => {
+        return Promise.all ([articles.map(({__v,...article}, index) => {
           return {
             ...article._doc,
             comments: commentCount[index]
