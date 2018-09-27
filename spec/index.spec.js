@@ -281,7 +281,7 @@ describe('/api', () => {
           return request
             .get('/api/users/username')
             .expect(200)
-            .then(res => { 
+            .then(res => { console.log(res.body)
               expect(res.body.user).to.haveOwnProperty('username');
             });
         })
