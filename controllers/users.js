@@ -2,9 +2,10 @@ const { User } = require('../models/index');
 
 const getUserByUsername = (req, res, next) => {
     const {username} = req.params
-    User.find({username: username})
+    User.findById(username)
     .then(user => {
-      res.send({ user })
+      console.log(user)
+      res.status(200).send({user})
     })
     .catch(next)
 }
