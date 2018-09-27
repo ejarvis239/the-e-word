@@ -26,7 +26,9 @@ const getCommentByArticle = (req, res, next) => {
     const { article_id } = req.params;
     return Promise.all([
       Article.findById(article_id), 
-      Comment.find({belongs_to: article_id}).populate('created_by', '-_id -__v').populate('belongs_to', '-_id -__v')])
+      Comment.find({belongs_to: article_id})
+      .populate('created_by', '-_id -__v')
+      .populate('belongs_to', '-_id -__v')])
     .then(([article, comments]) => {
       if (!article) throw {msg: 'article ID does not exist', status:404}
       res.status(200).send({ comments })
@@ -63,7 +65,6 @@ const addComment = (req, res, next) => {
       res.status(200).send({comment})
     })
     .catch(next)
-
   }
 }
 

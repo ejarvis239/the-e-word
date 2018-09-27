@@ -55,7 +55,7 @@ const getArticleByTopic = (req, res, next) => {
   ])
     .then(([commentCount, article]) => {
         if (!article) return Promise.reject({msg: 'id does not exist', status:404})
-        article = {...article._doc, comments: commentCount}
+        article = {...article._doc, comments: commentCount, __v: undefined}
         res.status(200).send({ article })
       })
       .catch(next)
@@ -66,7 +66,8 @@ const getArticleByTopic = (req, res, next) => {
     const newArticle = req.body
     newArticle.belongs_to = topic_slug
     Article.create(newArticle)
-      .then(article => {
+      .then(article1 => {
+        const article = {...article1._doc, comments: 0, __v: undefined}
         res.status(201).send({article})
       })
       .catch(next)

@@ -47,7 +47,7 @@ describe('/api', () => {
           return request
           .get("/api/topics/mitch/articles")
           .expect(200)
-          .then(res => { console.log(res.body)
+          .then(res => {
             expect(res.body.topicArticles).to.be.an("array")
             expect(res.body.topicArticles).to.have.length(2);
             expect(res.body.topicArticles[0]).to.haveOwnProperty("comments")
@@ -66,9 +66,13 @@ describe('/api', () => {
               .post('/api/topics/mitch/articles')
               .send({ title: 'mitch', body: 'mitch', belongs_to: 'mitch', created_by: users[0]._id})
               .expect(201)
-              .then(res => {
+              .then(res => { 
                 expect(res.body.article.title).to.equal('mitch');
+                expect(res.body.article.comments).to.equal(0);
                 expect(res.body.article).to.include.keys(
+                  "votes",
+                  "_id",
+                  "comments",
                   "title",
                   "body",
                   "belongs_to",
@@ -96,7 +100,7 @@ describe('/api', () => {
         });   
       });   
     describe('/articles/', () => {
-      it.only('GET returns object with article array and returns a 200 status', () => {
+      it('GET returns object with article array and returns a 200 status', () => {
         return request
           .get('/api/articles/')
           .expect(200)
@@ -131,7 +135,6 @@ describe('/api', () => {
               "votes",
               "created_at",
               "_id",
-              "__v",
               "comments"
             )
           });
@@ -189,9 +192,16 @@ describe('/api', () => {
           .patch(`/api/articles/${articles[0]._id}?vote=up`)
           .expect(200)
           .then(res => {
-            console.log(res.body)
             expect(res.body.article.votes).to.equal(1);
             expect(res.body.article).to.haveOwnProperty("comments")
+          });
+      })
+      it('PATCH votes for article that doesnt exist returns an error message and a 404 status', () => {
+        return request
+          .get(`/api/articles/${mongoose.Types.ObjectId()}?vote=up`)
+          .expect(404)
+          .then(res => { 
+            expect(res.body.msg).to.equal('id does not exist');
           });
       })
       it('PATCH decrements the votes of an article by one', () => {
@@ -201,6 +211,14 @@ describe('/api', () => {
           .then(res => {
             expect(res.body.article.votes).to.equal(-1);
             expect(res.body.article).to.haveOwnProperty("comments")
+          });
+      })
+      it('PATCH votes for article that doesnt exist returns an error message and a 404 status', () => {
+        return request
+          .get(`/api/articles/${mongoose.Types.ObjectId()}?vote=down`)
+          .expect(404)
+          .then(res => { 
+            expect(res.body.msg).to.equal('id does not exist');
           });
       })
     })
@@ -280,8 +298,16 @@ describe('/api', () => {
           return request
             .get('/api/users/butter_bridge')
             .expect(200)
-            .then(res => { console.log(res.body)
+            .then(res => { 
               expect(res.body.user[0]).to.include.keys('username', 'name', 'avatar_url');
+            });
+        })
+        it('GET user that doesnt exist returns an error message and a 404 status', () => {
+          return request
+            .get(`/api/users/${mongoose.Types.ObjectId()}`)
+            .expect(404)
+            .then(res => { 
+              expect(res.body.msg).to.equal('user does not exist');
             });
         })
       })
