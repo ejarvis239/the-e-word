@@ -25,6 +25,7 @@ const getArticleByTopic = (req, res, next) => {
   const getArticles = (req, res, next) => {
       Article.find()
       .populate('created_by', '-__v')
+      .lean()
       .then(articles => {
        return Promise.all([articles, ...articles.map(article => {
          const commentCount= Comment.count({belongs_to: article._id})
@@ -34,7 +35,7 @@ const getArticleByTopic = (req, res, next) => {
       .then(([articles, ...commentCount]) => {
         return Promise.all ([articles.map((article, index) => {
           const newArticle = {
-            ...article._doc,
+            ...article,
             comments: commentCount[index]
       }
       delete newArticle.__v
@@ -51,11 +52,11 @@ const getArticleByTopic = (req, res, next) => {
     const {article_id} = req.params
     return Promise.all([
     Comment.count({belongs_to: article_id}),
-    Article.findById(article_id).populate('created_by', '-__v')
+    Article.findById(article_id).populate('created_by', '-__v').lean()
   ])
     .then(([commentCount, article]) => {
         if (!article) return Promise.reject({msg: 'id does not exist', status:404})
-        article = {...article._doc, comments: commentCount, __v: undefined}
+        article = {...article, comments: commentCount}
         res.status(200).send({ article })
       })
       .catch(next)
@@ -79,9 +80,9 @@ const getArticleByTopic = (req, res, next) => {
     Comment.count({belongs_to: article_id})
     .then(commentCount => {
     Article.findByIdAndUpdate({_id: article_id}, {$set: {votes: +1}}, {new: true})
-    .populate('created_by', '-__v')
+    .populate('created_by', '-__v').lean()
     .then(article1 => {
-      const article = {...article1._doc, comments: commentCount}
+      const article = {...article1, comments: commentCount}
       if (!article) throw {msg: 'id does not exist', status:404}
       res.status(200).send({article})
     })
@@ -92,9 +93,9 @@ const getArticleByTopic = (req, res, next) => {
     Comment.count({belongs_to: article_id})
       .then(commentCount => {
     Article.findByIdAndUpdate({_id: article_id}, {$set: {votes: -1}}, {new: true})
-    .populate('created_by', '__v')
+    .populate('created_by', '__v').lean()
     .then(article1 => {
-      const article = {...article1._doc, comments: commentCount}
+      const article = {...article1, comments: commentCount}
       if (!article) throw {msg: 'id does not exist', status:404}
       res.status(200).send({article})
     })
