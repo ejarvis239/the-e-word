@@ -23,6 +23,9 @@
         <br> <a href="/api/topics">GET /api/topics</a>
         <br>Get all the topics
         <br>
+        <br> <a href="/api/articles">GET /api/articles</a>
+        <br>Returns all the articles
+        <br>
         <br> GET /api/topics/:topic_id/articles
         <br>Return all the articles for a certain topic
         <br>
@@ -30,9 +33,6 @@
         <br> Add a new article to a topic. 
         <br>This route requires a JSON body with title and body key value pairs 
         <br>e.g: { "title": "this is my new article title" "body": "This is my new article content" }
-        <br>
-        <br> <a href="/api/articles">GET /api/articles</a>
-        <br>Returns all the articles
         <br>
         <br>GET /api/articles/:article_id
         <br>Get an individual article
@@ -49,6 +49,12 @@
         <br>Increment or Decrement the votes of an article by one. 
         <br>This route requires a vote query of 'up' or 'down' 
         <br>e.g: /api/articles/:article_id?vote=up
+        <br>
+        <br>GET /api/comments
+        <br>Return all comments
+        <br>
+        <br>GET /api/comments/:comment_id
+        <br>Return comment by ID
         <br>
         <br>PATCH /api/comments/:comment_id
         <br>Increment or Decrement the votes of a comment by one. 
