@@ -200,7 +200,6 @@ describe('/api', () => {
         .patch(`/api/articles/${articles[0]._id}?vote=down`)
         .expect(200)
           .then(res => {
-            console.log(res.body)
             expect(res.body.article.votes).to.equal(-1);
             expect(res.body.article).to.haveOwnProperty("comments")
           });
@@ -211,10 +210,29 @@ describe('/api', () => {
         return request
           .get('/api/comments')
           .expect(200)
-          .then(res => { console.log(res.body)
+          .then(res => {
             expect(res.body.comments.length).to.equal(8);
             expect(res.body.comments[0]).to.haveOwnProperty("belongs_to")
             expect(res.body.comments[0]).to.haveOwnProperty("created_by")
+          });
+      })
+    })
+    describe('/api/comments/:comment_id', () => {
+      it('GET returns comment by comment ID', () => {
+        return request
+          .get(`/api/comments/${comments[0]._id}`)
+          .expect(200)
+          .then(res => {
+            expect(res.body.comment).to.haveOwnProperty("belongs_to")
+            expect(res.body.comment).to.haveOwnProperty("created_by")
+          });
+      })
+      it('GET a comment for a comment ID that doesnt exist returns an error message and a 404 status', () => {
+        return request
+          .get(`/api/comments/${mongoose.Types.ObjectId()}`)
+          .expect(404)
+          .then(res => { 
+            expect(res.body.msg).to.equal('comment ID does not exist');
           });
       })
     })
@@ -227,12 +245,28 @@ describe('/api', () => {
               expect(res.body.comment.votes).to.equal(1);
             });
         })
+        it('PATCH a comment for a comment ID that doesnt exist returns an error message and a 404 status', () => {
+          return request
+            .get(`/api/comments/${mongoose.Types.ObjectId()}?vote=up`)
+            .expect(404)
+            .then(res => { 
+              expect(res.body.msg).to.equal('comment ID does not exist');
+            });
+        })
         it('PATCH decrements the votes of a comment by one', () => {
           return request
             .patch(`/api/comments/${comments[0]._id}?vote=down`)
             .expect(200)
             .then(res => {
               expect(res.body.comment.votes).to.equal(-1);
+            });
+        })
+        it('PATCH a comment for a comment ID that doesnt exist returns an error message and a 404 status', () => {
+          return request
+            .get(`/api/comments/${mongoose.Types.ObjectId()}?vote=down`)
+            .expect(404)
+            .then(res => { 
+              expect(res.body.msg).to.equal('comment ID does not exist');
             });
         })
         it('DELETE deletes the specified comment and returns a status 200', () => {
@@ -243,7 +277,7 @@ describe('/api', () => {
               })
       })
       describe('/users/:username', () => {
-        it('GET Returns a JSON object with the profile data for the specified user', () => {
+        it.only('GET Returns a JSON object with the profile data for the specified user', () => {
           return request
             .get('/api/users/username')
             .expect(200)

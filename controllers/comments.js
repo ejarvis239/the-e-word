@@ -16,6 +16,7 @@ const getCommentById = (req, res, next) => {
   .populate('created_by', '-_id -__v')
   .populate('belongs_to', '-_id -__v')
   .then(comment => {
+    if (!comment) throw {msg: 'comment ID does not exist', status:404}
     res.status(200).send({ comment })
     })
     .catch(next)
@@ -42,7 +43,6 @@ const addComment = (req, res, next) => {
         res.status(201).send({comment})
       })
       .catch(next)
-
   }
 
   const changeCommentVotes = (req, res, next) => {
@@ -50,6 +50,7 @@ const addComment = (req, res, next) => {
     if (req.query.vote == 'up'){
     Comment.findByIdAndUpdate({_id: comment_id}, {$set : {votes: +1}}, {new:true})
     .then(comment => {
+      if (!comment) throw {msg: 'comment ID does not exist', status:404}
       res.status(200).send({comment})
     })
     .catch(next)
@@ -58,6 +59,7 @@ const addComment = (req, res, next) => {
   else if (req.query.vote == 'down'){
     Comment.findByIdAndUpdate({_id: comment_id}, {$set: {votes: -1}}, {new:true})
     .then(comment => {
+      if (!comment) throw {msg: 'comment ID does not exist', status:404}
       res.status(200).send({comment})
     })
     .catch(next)

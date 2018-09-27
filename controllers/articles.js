@@ -72,7 +72,6 @@ const getArticleByTopic = (req, res, next) => {
 
   const changeArticleVotes = (req,res, next) => {
     const {article_id} = req.params
-
     if (req.query.vote === 'up'){
     Comment.count({belongs_to: article_id})
     .then(commentCount => {
