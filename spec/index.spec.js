@@ -206,7 +206,18 @@ describe('/api', () => {
           });
       })
     })
-
+    describe('/api/comments', () => {
+      it('GET returns all comments for all articles', () => {
+        return request
+          .get('/api/comments')
+          .expect(200)
+          .then(res => { console.log(res.body)
+            expect(res.body.comments.length).to.equal(8);
+            expect(res.body.comments[0]).to.haveOwnProperty("belongs_to")
+            expect(res.body.comments[0]).to.haveOwnProperty("created_by")
+          });
+      })
+    })
     describe('/api/comments/:comment_id?vote=', () => {
         it('PATCH Increment the votes of a comment by one', () => {
           return request
@@ -216,7 +227,7 @@ describe('/api', () => {
               expect(res.body.comment.votes).to.equal(1);
             });
         })
-        it.only('PATCH decrements the votes of a comment by one', () => {
+        it('PATCH decrements the votes of a comment by one', () => {
           return request
             .patch(`/api/comments/${comments[0]._id}?vote=down`)
             .expect(200)

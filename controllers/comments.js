@@ -10,6 +10,17 @@ const getComments = (req, res, next) => {
     .catch(next)
   }
 
+const getCommentById = (req, res, next) => {
+  const {comment_id} = req.params
+  Comment.findById(comment_id)
+  .populate('created_by', '-_id -__v')
+  .populate('belongs_to', '-_id -__v')
+  .then(comment => {
+    res.status(200).send({ comment })
+    })
+    .catch(next)
+  }
+
 const getCommentByArticle = (req, res, next) => {
     const { article_id } = req.params;
     return Promise.all([
@@ -64,4 +75,4 @@ const addComment = (req, res, next) => {
 
 }
 
-module.exports = { getComments, getCommentByArticle, addComment, changeCommentVotes, deleteComment};
+module.exports = { getComments, getCommentById, getCommentByArticle, addComment, changeCommentVotes, deleteComment};
