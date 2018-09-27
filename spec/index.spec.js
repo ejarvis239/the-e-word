@@ -96,14 +96,24 @@ describe('/api', () => {
         });   
       });   
     describe('/articles/', () => {
-      it.only('GET returns object with article array and returns a 200 status', () => {
+      it('GET returns object with article array and returns a 200 status', () => {
         return request
           .get('/api/articles/')
           .expect(200)
-          .then(res => {
-            console.log(res.body)
-            // expect(res.body[0].comments).to.equal(2);
-            // expect(res.body.articles[0]).to.haveOwnProperty("comments");
+          .then(res => { console.log(res.body)
+            expect(res.body.articles[0].comments).to.equal(2);
+            expect(res.body.articles[0]).to.haveOwnProperty("comments");
+            expect(res.body.articles[0]).to.include.keys(
+              "title",
+              "body",
+              "belongs_to",
+              "created_by",
+              "votes",
+              "created_at",
+              "_id",
+              "__v",
+              "comments"
+            )
           });
       })
     })
@@ -143,6 +153,16 @@ describe('/api', () => {
             .expect(200)
             .then(res => {
               expect(res.body.comments[0].body).to.equal('Replacing the quiet elegance of the dark suit and tie with the casual indifference of these muted earth tones is a form of fashion suicide, but, uh, call me crazy — on you it works.');
+              expect(res.body.comments[0]).to.include.keys("votes", "created_at", "_id", "body", "belongs_to", "created_by", "__v")
+              expect(res.body.comments.length).to.equal(2)
+            });
+        })
+        it('GET comments for an article id that doesnt exist returns an error message and a 404 status', () => {
+          return request
+            .get(`/api/articles/${mongoose.Types.ObjectId()}/comments`)
+            .expect(404)
+            .then(res => { 
+              expect(res.body.msg).to.equal('article ID does not exist');
             });
         })
       })
@@ -152,7 +172,6 @@ describe('/api', () => {
           .send({ body: 'eevee is my favourite pokemon', belongs_to: articles[0]._id, created_by: users[0]._id})
           .expect(201)
           .then(res => {
-            console.log(res.body)
             expect(res.body.comment.body).to.equal('eevee is my favourite pokemon');         
           });
       });
@@ -161,7 +180,7 @@ describe('/api', () => {
         .post(`/api/articles/${articles[0]._id}/comments`)
         .send({  })
         .expect(400)
-        .then(res => { console.log(res.body)
+        .then(res => { 
           expect(res.body.msg).to.equal('comments validation failed: created_by: Path `created_by` is required., body: Path `body` is required.');
         });
       });
@@ -182,7 +201,8 @@ describe('/api', () => {
         .expect(200)
           .then(res => {
             console.log(res.body)
-            expect(res.body.article.votes).to.equal(1);
+            expect(res.body.article.votes).to.equal(-1);
+            expect(res.body.article).to.haveOwnProperty("comments")
           });
       })
     })
@@ -196,7 +216,7 @@ describe('/api', () => {
               expect(res.body.comment.votes).to.equal(1);
             });
         })
-        it('PATCH decrements the votes of a comment by one', () => {
+        it.only('PATCH decrements the votes of a comment by one', () => {
           return request
             .patch(`/api/comments/${comments[0]._id}?vote=down`)
             .expect(200)

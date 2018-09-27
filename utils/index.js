@@ -14,7 +14,8 @@
 
   exports.formatArticleData = (articleData, userRefObj, topicDocs) => {
     const newArray = articleData.map(data => {
-        return {belongs_to: data.topic, 
+        return {
+          belongs_to: data.topic, 
           created_by: userRefObj[data.created_by], 
           title: data.title, 
           votes: data.votes, 

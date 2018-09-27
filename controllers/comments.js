@@ -1,16 +1,26 @@
-const { Comment } = require('../models/index');
+const { Comment, Article } = require('../models/index');
+
+const getComments = (req, res, next) => {
+  Comment.find()
+  .populate('created_by', '-_id -__v')
+  .populate('belongs_to', '-_id -__v')
+  .then(comments => {
+    res.status(200).send({ comments })
+    })
+    .catch(next)
+  }
 
 const getCommentByArticle = (req, res, next) => {
     const { article_id } = req.params;
-    Comment.find({belongs_to: article_id})
-    .populate('created_by', '-_id -__v')
-    .populate('belongs_to', '-_id -__v')
-      .then(comments => {
-        res.status(200).send({ comments })
+    return Promise.all([
+      Article.findById(article_id), 
+      Comment.find({belongs_to: article_id}).populate('created_by', '-_id -__v').populate('belongs_to', '-_id -__v')])
+    .then(([article, comments]) => {
+      if (!article) throw {msg: 'article ID does not exist', status:404}
+      res.status(200).send({ comments })
       })
       .catch(next)
-
-  };
+    }
 
 const addComment = (req, res, next) => {
     const {article_id} = req.params
@@ -54,4 +64,4 @@ const addComment = (req, res, next) => {
 
 }
 
-module.exports = { getCommentByArticle, addComment, changeCommentVotes, deleteComment};
+module.exports = { getComments, getCommentByArticle, addComment, changeCommentVotes, deleteComment};
