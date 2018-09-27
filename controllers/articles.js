@@ -4,7 +4,6 @@ const getArticleByTopic = (req, res, next) => {
     const { topic_slug } = req.params;
     Article.find({belongs_to: topic_slug})
     .populate('created_by', '-_id -__v')
-      .lean()
       .then(articles => {
           return Promise.all([articles, ...articles.map(article => {
             const commentCount = Comment.count({ belongs_to: article._id })
