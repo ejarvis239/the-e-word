@@ -96,7 +96,7 @@ describe('/api', () => {
         });   
       });   
     describe('/articles/', () => {
-      it('GET returns object with article array and returns a 200 status', () => {
+      it.only('GET returns object with article array and returns a 200 status', () => {
         return request
           .get('/api/articles/')
           .expect(200)
@@ -111,7 +111,6 @@ describe('/api', () => {
               "votes",
               "created_at",
               "_id",
-              "__v",
               "comments"
             )
           });

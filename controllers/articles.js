@@ -32,11 +32,13 @@ const getArticleByTopic = (req, res, next) => {
         })])
         })
       .then(([articles, ...commentCount]) => {
-        return Promise.all ([articles.map(({__v,...article}, index) => {
-          return {
+        return Promise.all ([articles.map((article, index) => {
+          const newArticle = {
             ...article._doc,
             comments: commentCount[index]
       }
+      delete newArticle.__v
+      return newArticle
     })])
     .then(([articles]) => {
       res.status(200).send({articles})
