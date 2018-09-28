@@ -12,7 +12,7 @@ app.use(express.static(__dirname + "/public"));
 mongoose.connect(DB_URL)
   .catch(console.log)
 
-app.get("/", (req, res, next) => res.status(200).render("homepage"));
+app.get('/', express.static('public'))
 
 app.use('/api', apiRouter);
 
