@@ -3,7 +3,7 @@ const { Article, Comment } = require('../models/index');
 const getArticleByTopic = (req, res, next) => {
     const { topic_slug } = req.params;
     Article.find({belongs_to: topic_slug})
-    .populate('created_by', '-_id -__v')
+    .populate('created_by', '-__v')
       .lean()
       .then(articles => {
           return Promise.all([articles, ...articles.map(article => {
