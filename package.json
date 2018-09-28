@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha spec/",
     "start": "node listen.js",
-    "dev": "nodemon listen.js"
+    "dev": "nodemon listen.js",
+    "seed": "node seed/run-seed.js"
   },
   "author": "",
   "license": "ISC",

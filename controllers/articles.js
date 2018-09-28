@@ -50,9 +50,9 @@ const getArticleByTopic = (req, res, next) => {
     Article.findById(article_id).populate('created_by', '-__v').lean()
   ])
     .then(([commentCount, article]) => {
-        if (!article) return Promise.reject({msg: 'id does not exist', status:404})
+        
         article = {...article, comments: commentCount}
-        res.status(200).send({ article })
+        res.status(200).send({ article })if (!article) return Promise.reject({msg: 'id does not exist', status:404})
       })
       .catch(next)
   };
