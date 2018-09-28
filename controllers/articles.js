@@ -50,9 +50,9 @@ const getArticleByTopic = (req, res, next) => {
     Article.findById(article_id).populate('created_by', '-__v').lean()
   ])
     .then(([commentCount, article]) => {
-        
+      if (!article) return Promise.reject({msg: 'id does not exist', status:404})
         article = {...article, comments: commentCount}
-        res.status(200).send({ article })if (!article) return Promise.reject({msg: 'id does not exist', status:404})
+        res.status(200).send({ article })
       })
       .catch(next)
   };
@@ -71,10 +71,10 @@ const getArticleByTopic = (req, res, next) => {
 
   const changeArticleVotes = (req,res, next) => {
     const {article_id} = req.params
-    if (req.query.vote === 'up'){
+    const votes = req.query.vote == 'up' ? 1 : req.query.vote == 'down' ? -1 : 0
     Comment.count({belongs_to: article_id})
     .then(commentCount => {
-    Article.findByIdAndUpdate({_id: article_id}, {$set: {votes: +1}}, {new: true})
+    Article.findByIdAndUpdate({_id: article_id}, {$set: {votes: votes}}, {new: true})
     .populate('created_by', '-__v').lean()
     .then(article1 => {
       const article = {...article1, comments: commentCount}
@@ -84,19 +84,5 @@ const getArticleByTopic = (req, res, next) => {
   })
     .catch(next)
   }
-    if (req.query.vote === 'down'){
-    Comment.count({belongs_to: article_id})
-      .then(commentCount => {
-    Article.findByIdAndUpdate({_id: article_id}, {$set: {votes: -1}}, {new: true})
-    .populate('created_by', '__v').lean()
-    .then(article1 => {
-      const article = {...article1, comments: commentCount}
-      if (!article) throw {msg: 'id does not exist', status:404}
-      res.status(200).send({article})
-    })
-  })
-    .catch(next)
-  }
-}
-  
+
   module.exports = { getArticleByTopic, getArticles, getArticleById, addArticle, changeArticleVotes };

@@ -49,24 +49,14 @@ const addComment = (req, res, next) => {
 
   const changeCommentVotes = (req, res, next) => {
     const {comment_id} = req.params
-    if (req.query.vote == 'up'){
-    Comment.findByIdAndUpdate({_id: comment_id}, {$set : {votes: +1}}, {new:true})
-    .then(comment => {
-      if (!comment) throw {msg: 'comment ID does not exist', status:404}
-      res.status(200).send({comment})
-    })
-    .catch(next)
-
-  }
-  else if (req.query.vote == 'down'){
-    Comment.findByIdAndUpdate({_id: comment_id}, {$set: {votes: -1}}, {new:true})
+    const votes = req.query.vote == 'up' ? 1 : req.query.vote == 'down' ? -1 : 0
+    Comment.findByIdAndUpdate({_id: comment_id}, {$set : {votes: votes}}, {new:true})
     .then(comment => {
       if (!comment) throw {msg: 'comment ID does not exist', status:404}
       res.status(200).send({comment})
     })
     .catch(next)
   }
-}
 
   const deleteComment = (req, res, next) => {
     const {comment_id} = req.params

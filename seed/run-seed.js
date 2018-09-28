@@ -8,6 +8,6 @@ mongoose.connect(DB_URL)
   .then(() => {
     return seedDB(data)
   })
-  .then(() => {
+  .then(() => { console.log('successfully seeded')
     mongoose.disconnect();
   });

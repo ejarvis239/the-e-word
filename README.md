@@ -59,8 +59,3 @@ The seed file provided should create an appropriate local mongo database. This c
 
 Testing Code Additions
 The provided tests (ran through the 'npm test' script) are set up to test all of the existing server endpoints and correct/incorrect usage of them by users. Any tests written for additional endpoints created should follow the same structure.
-
-Hosting
-The app is hosted on heroku and can easily be re-hosted if this repo is cloned and modified. The 2 config variables that will need to be added are the 'NODE_ENV' (production) and the 'DB_URL' (the link to the hosted mongo database e.g. "mongodb://<user>:<password>@<mlab:port>/<database-name>")
-
-Mongo databases can be hosted on mlab.
