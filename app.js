@@ -4,6 +4,9 @@ const app = express();
 const bodyParser = require('body-parser');
 const apiRouter = require('./router/api');
 const { handle404s, handle400s, handle500s } = require('./errors')
+const cors = require('cors')
+app.use(cors())
+
 app.use(bodyParser.json(), express.static('public'))
 const DB_URL = process.env.DB_URL || require('./config/index.js')
 app.set("view engine", "ejs");
