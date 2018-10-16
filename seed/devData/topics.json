@@ -1,7 +1,7 @@
 [
-  { "title": "Coding", "slug": "coding" },
-  { "title": "Football", "slug": "football" },
-  { "title": "Cooking", "slug": "cooking" },
-  { "title": "Music", "slug": "music" },
-  { "title": "Movies", "slug": "movies" }
+  { "title": "Coding", "slug": "coding", "image":"https://i.pinimg.com/564x/be/dd/ef/beddef99d59666201ae293bcc362ec97.jpg" },
+  { "title": "Football", "slug": "football", "image": "https://i.pinimg.com/564x/9a/07/ab/9a07ab814238e792d99daba3a093b005.jpg" },
+  { "title": "Cooking", "slug": "cooking", "image": "https://i.pinimg.com/564x/c2/eb/eb/c2ebeb96f22ff99135eef8e4c24bb730.jpg" },
+  { "title": "Music", "slug": "music", "image": "https://i.pinimg.com/564x/4f/17/66/4f1766cd89d046f899a9480ada9be3aa.jpg" },
+  { "title": "Movies", "slug": "movies", "image": "https://i.pinimg.com/564x/1a/6f/b1/1a6fb1a4aed5cc0d2a502628bae02352.jpg" }
 ]
