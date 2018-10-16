@@ -15,9 +15,9 @@ const getArticleByTopic = (req, res, next) => {
           articles.map((article, i) => {
             return { ...article, comments: commentCount[i] };
           }))
-        .then(topicArticles => {
-       if (!topicArticles.length) throw {msg: 'topic does not exist', status:404}
-       res.status(200).send({ topicArticles })
+        .then(articles => {
+       if (!articles.length) throw {msg: 'topic does not exist', status:404}
+       res.status(200).send({ articles })
         })
       .catch(next)
   };
