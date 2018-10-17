@@ -41,6 +41,8 @@ const addComment = (req, res, next) => {
     const newComment = req.body
     newComment.belongs_to = article_id
     Comment.create(newComment)
+    .populate('created_by', '-__v')
+    .populate('belongs_to', '-__v')
       .then(comment => {
         res.status(201).send({comment})
       })
