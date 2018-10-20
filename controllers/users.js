@@ -10,4 +10,13 @@ const getUserByUsername = (req, res, next) => {
     .catch(next)
 }
 
-module.exports = { getUserByUsername };
+const getUsers = (req, res, next) => {
+  User.find()
+    .then(users => {
+      res.status(200).send({ users })
+    })
+    .catch(next)
+};
+
+
+module.exports = { getUserByUsername, getUsers };
