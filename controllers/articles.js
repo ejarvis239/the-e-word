@@ -74,7 +74,7 @@ const getArticleByTopic = (req, res, next) => {
     const votes = req.query.vote == 'up' ? 1 : req.query.vote == 'down' ? -1 : 0
     Comment.count({belongs_to: article_id})
     .then(commentCount => {
-    Article.findByIdAndUpdate({_id: article_id}, {$set: {votes: votes}}, {new: true})
+    Article.findByIdAndUpdate({_id: article_id}, {$inc: {votes: votes}}, {new: true})
     .populate('created_by', '-__v').lean()
     .then(article1 => {
       const article = {...article1, comments: commentCount}

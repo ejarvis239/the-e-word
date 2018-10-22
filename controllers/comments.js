@@ -55,7 +55,7 @@ const addComment = (req, res, next) => {
   const changeCommentVotes = (req, res, next) => {
     const {comment_id} = req.params
     const votes = req.query.vote == 'up' ? 1 : req.query.vote == 'down' ? -1 : 0
-    Comment.findByIdAndUpdate({_id: comment_id}, {$set : {votes: votes}}, {new:true})
+    Comment.findByIdAndUpdate({_id: comment_id}, {$inc : {votes: votes}}, {new:true})
     .then(comment => {
       if (!comment) throw {msg: 'comment ID does not exist', status:404}
       res.status(200).send({comment})
