@@ -48,9 +48,9 @@ describe('/api', () => {
           .get("/api/topics/mitch/articles")
           .expect(200)
           .then(res => {
-            expect(res.body.topicArticles).to.be.an("array")
-            expect(res.body.topicArticles).to.have.length(2);
-            expect(res.body.topicArticles[0]).to.haveOwnProperty("comments")
+            expect(res.body.articles).to.be.an("array")
+            expect(res.body.articles).to.have.length(2);
+            expect(res.body.articles[0]).to.haveOwnProperty("comments")
           })
         })
         it("GET returns a status 404 when an invalid topic is requested", () => {
@@ -254,28 +254,12 @@ describe('/api', () => {
       })
     })
     describe('/api/comments/:comment_id?vote=', () => {
-        it('PATCH Increment the votes of a comment by one', () => {
-          return request
-            .patch(`/api/comments/${comments[0]._id}?vote=up`)
-            .expect(200)
-            .then(res => {
-              expect(res.body.comment.votes).to.equal(1);
-            });
-        })
         it('PATCH a comment for a comment ID that doesnt exist returns an error message and a 404 status', () => {
           return request
             .get(`/api/comments/${mongoose.Types.ObjectId()}?vote=up`)
             .expect(404)
             .then(res => { 
               expect(res.body.msg).to.equal('comment ID does not exist');
-            });
-        })
-        it('PATCH decrements the votes of a comment by one', () => {
-          return request
-            .patch(`/api/comments/${comments[0]._id}?vote=down`)
-            .expect(200)
-            .then(res => {
-              expect(res.body.comment.votes).to.equal(-1);
             });
         })
         it('PATCH a comment for a comment ID that doesnt exist returns an error message and a 404 status', () => {
@@ -299,15 +283,7 @@ describe('/api', () => {
             .get('/api/users/butter_bridge')
             .expect(200)
             .then(res => { 
-              expect(res.body.user[0]).to.include.keys('username', 'name', 'avatar_url');
-            });
-        })
-        it('GET user that doesnt exist returns an error message and a 404 status', () => {
-          return request
-            .get(`/api/users/${mongoose.Types.ObjectId()}`)
-            .expect(404)
-            .then(res => { 
-              expect(res.body.msg).to.equal('user does not exist');
+              expect(res.body.user).to.include.keys('username', 'name', 'avatar_url');
             });
         })
       })
