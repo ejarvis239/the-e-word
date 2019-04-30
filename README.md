@@ -1,7 +1,7 @@
 Northcoders News Back-End
 A back-end server built to interface with a mongoDB database - providing useful api endpoints to perform CREATE, READ, UPDATE and DELETE operations on the four collections within.
 
-Check it out --> https://nc-news-emma.herokuapp.com/
+Check it out --> https://nc-news-emma.herokuapp.com/api
 
 List of endpoints available
 GET /api
